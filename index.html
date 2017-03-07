@@ -1,3 +1,40 @@
 <html>
+<!---
+	Scopes:
+	P0000.Area.TestScope {objects: [TestObject1, TestObject2, TestObject3, ...]}
+	P0000.Area.TestObject.SubObject
 
+-->
+  <head>
+    <script>
+        var scope = {};
+      
+      	function LoadScope(sId) {
+          scope = localStorage.getItem(sId);
+          if(scope) {
+            // Load nodes
+            DrawGrid();
+          }
+          else {
+           // Error handling 
+          }
+        }
+      
+    	function DrawGrid() {
+        	for(i = 0; i < scope.objects.length; i++) {
+              
+            }
+        }
+      
+      	function RunSimulation() { 
+        	// Nodes sorted by sequence
+          
+        }
+      
+    </script>
+  </head>
+  
+  <body>
+    <div id="grid">&nbsp;</div>
+  </body>
 </html>
