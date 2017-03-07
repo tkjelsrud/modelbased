@@ -16,19 +16,31 @@
             DrawGrid();
           }
           else {
-           // Error handling 
+            // Error handling 
           }
         }
       
     	function DrawGrid() {
-        	for(i = 0; i < scope.objects.length; i++) {
-              
+          // Create html
+          for(j = 0; j < scope.size.y; j++) {
+            for(i = 0; i < scope.size.x; i++) {
+				//$("#grid").
             }
+          }
+        }
+      
+      	function PlaceNodes() {
+          for(i = 0; i < scope.objects.length; i++) {
+            o = scope.objects[i];
+			// Fill the region on grid
+			$("grid." + o.loc.x + "." + o.loc.y).css("color", "grey");
+            // Add sub elements (queues) to the node?
+          }
         }
       
       	function RunSimulation() { 
-        	// Nodes sorted by sequence
-          
+       	  // Nodes sorted by sequence
+          // 
         }
       
     </script>
