@@ -13,6 +13,13 @@ function Node(id, label, x, y) {
   this.y = y;
 }
 
+function GetNode(id) {
+  for(i = 0; i < cscope.nodes.length; i++)
+    if(cscope.nodes[i].id == id)
+      return cscope.nodes[i];
+  return null;
+}
+
 function createTestScope() {
   cscope = new Scope("Test.1", 0, [new Node("N1", "Test node", 100, 100), new Node("N2", "Test node2", 200, 100)]);
   //scope.size.x = 10;
