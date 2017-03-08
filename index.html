@@ -32,7 +32,8 @@
             background.attr('fill', COLOR_NORMAL);
           })
           */
-          createTestScope();
+          sid = QueryString.sid;
+          LoadScope(sid);
           Draw();
         }
       
@@ -43,7 +44,8 @@
             Draw();
           }
           else {
-            // Error handling 
+            // Fallback to test scope
+            createTestScope();
           }
         }
       
