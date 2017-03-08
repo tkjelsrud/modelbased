@@ -73,15 +73,15 @@
           for(i = 0; i < cscope.nodes.length; i++) {
             n = cscope.nodes[i];
           	var re = paper.rect( n.x, n.y, 50, 50 );
-            re.attr("id", n.id);
+            re.attr("nid", n.id);
           	re.attr("fill", "#ff0000");
             re.attr({
             	cursor: 'pointer',
           	}).mouseup(function(e) {
-            	alert("clicked " + this.id);
+            	//alert("clicked " + document.getElementById(this.id));
                 this.x = e.clientX;
                 this.y = e.clientY;
-                n = GetNode(this.id);
+                n = GetNode(this.nid);
                 n.x = e.clientX;
                 n.y = e.clientY;
           	});
