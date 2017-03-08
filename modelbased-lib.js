@@ -5,9 +5,16 @@ function Scope(id, timer, objects) {
   this.size = {"x": 100, "y": 100};
 }
 
+function Node(id, label, x, y) {
+  this.id = id;
+  this.label = label;
+  this.x = x;
+  this.y = y;
+}
+
 function createTestScope() {
   n1 = {};
-  scope = new Scope("Test.1", 0, []);
+  scope = new Scope("Test.1", 0, [new Node("N1", "Test node", 100, 100), new Node("N2", "Test node2", 200, 100)]);
   scope.size.x = 10;
   scope.size.y = 10;
 }
