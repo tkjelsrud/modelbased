@@ -33,6 +33,15 @@
             alert("clicked " + e);
           }); 
           
+          var re = paper.rect( 100, 100, 50, 50 );
+          re.attr("fill", "#ff0000");
+          
+          bb1 = circle.getBBox();    
+      	  bb2 = re.getBBox();
+      	  var newPath = paper.path('M'+bb1.cx+','+bb1.cy+'L'+bb2.cx+','+bb2.cy);
+      	  newPath.attr({ stroke: 'blue'})
+
+          
           /*
           .mouseover(function(e) {
             background.attr('fill', COLOR_HOVER);
