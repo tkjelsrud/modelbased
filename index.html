@@ -20,10 +20,12 @@
           var circle = paper.circle(50, 40, 10);
           // Sets the fill attribute of the circle to red (#f00)
           circle.attr("fill", "#f00");
+          
+          circle.setAttribute("onclick", "alert('test');");
 
           // Sets the stroke attribute of the circle to white
           circle.attr("stroke", "#fff");
-          $(circle).draggable();
+          //$(circle).draggable();
         }
       
       	function LoadScope(sId) {
