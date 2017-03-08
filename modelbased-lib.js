@@ -15,6 +15,6 @@ function Node(id, label, x, y) {
 
 function createTestScope() {
   cscope = new Scope("Test.1", 0, [new Node("N1", "Test node", 100, 100), new Node("N2", "Test node2", 200, 100)]);
-  scope.size.x = 10;
-  scope.size.y = 10;
+  //scope.size.x = 10;
+  //scope.size.y = 10;
 }
