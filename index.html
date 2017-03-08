@@ -12,9 +12,12 @@
     <script type="text/javascript" src="raphael.min.js"></script>
     <script type="text/javascript" src="modelbased-lib.js"></script>
 	<script type="text/javascript">
+        var paper = 0;
+      
       	window.onload = function() {
           // Creates canvas 320 × 200 at 10, 50
-          var paper = Raphael(10, 50, 640, 480);
+          //paper = Raphael(10, 50, 640, 480);
+          paper = new Raphael(document.getElementById("canvas"), width, height);
 
           // Creates circle at x = 50, y = 40, with radius 10
           var circle = paper.circle(50, 40, 10);
@@ -52,11 +55,11 @@
       
     	function DrawGrid() {
           // Create html
-          for(j = 0; j < scope.size.y; j++) {
+          /*for(j = 0; j < scope.size.y; j++) {
             for(i = 0; i < scope.size.x; i++) {
 				//$("#grid").
             }
-          }
+          }*/
         }
       
       	function PlaceNodes() {
@@ -90,6 +93,6 @@
   </head>
   
   <body>
-    <div id="grid">&nbsp;</div>
+    <div id="canvas">&nbsp;</div>
   </body>
 </html>
