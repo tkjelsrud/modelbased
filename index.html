@@ -25,28 +25,7 @@
           //paper = Raphael(10, 50, 640, 480);
           paper = new Raphael(document.getElementById("canvas"), 800, 600);
 
-          // Creates circle at x = 50, y = 40, with radius 10
-          var circle = paper.circle(50, 40, 10);
-          // Sets the fill attribute of the circle to red (#f00)
-          circle.attr("fill", "#f00");
           
-          // Sets the stroke attribute of the circle to white
-          circle.attr("stroke", "#fff");
-          
-          circle.attr({
-            cursor: 'pointer',
-          }).mouseup(function(e) {
-            alert("clicked " + e);
-          }); 
-          
-          var re = paper.rect( 100, 100, 50, 50 );
-          re.attr("fill", "#ff0000");
-          
-          bb1 = circle.getBBox();    
-      	  bb2 = re.getBBox();
-      	  var newPath = paper.path('M'+bb1.cx+','+bb1.cy+'L'+bb2.cx+','+bb2.cy);
-      	  newPath.attr({ stroke: 'blue'})
-
           
           /*
           .mouseover(function(e) {
@@ -55,10 +34,11 @@
             background.attr('fill', COLOR_NORMAL);
           })
           */
+          createTestScope();
         }
       
       	function LoadScope(sId) {
-          scope = JSON.parse(localStorage.getItem(sId));
+          cscope = JSON.parse(localStorage.getItem(sId));
           if(scope) {
             // Load nodes
             DrawGrid();
@@ -69,19 +49,37 @@
         }
       
         function SaveScope(sId) {
-         localStorage.setItem(sId, JSON.stringify(scope));
+         localStorage.setItem(sId, JSON.stringify(cscope));
 
 		//...
 		//var storedNames = JSON.parse(localStorage.getItem("names")); 
         }
       
-    	function DrawGrid() {
-          // Create html
-          /*for(j = 0; j < scope.size.y; j++) {
-            for(i = 0; i < scope.size.x; i++) {
-				//$("#grid").
-            }
-          }*/
+    	function Draw() {
+          // Creates circle at x = 50, y = 40, with radius 10
+          /* var circle = paper.circle(50, 40, 10);
+          // Sets the fill attribute of the circle to red (#f00)
+          circle.attr("fill", "#f00");
+          
+          // Sets the stroke attribute of the circle to white
+          circle.attr("stroke", "#fff");
+          
+          circle.attr({
+            cursor: 'pointer',
+          }).mouseup(function(e) {
+            alert("clicked " + e);
+          }); */
+          for(i = 0; i < cscope.nodes.length; i++) {
+            n = cscope.nodes[i];
+          	var re = paper.rect( n.x, n.y, 50, 50 );
+          	re.attr("fill", "#ff0000");
+          }
+          
+          /*bb1 = circle.getBBox();    
+      	  bb2 = re.getBBox();
+      	  var newPath = paper.path('M'+bb1.cx+','+bb1.cy+'L'+bb2.cx+','+bb2.cy);
+      	  newPath.attr({ stroke: 'blue'})*/
+
         }
       
       	function PlaceNodes() {
