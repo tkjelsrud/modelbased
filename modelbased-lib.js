@@ -3,6 +3,7 @@ cscope = 0;
 function Scope(id, timer, objects) {
   this.id = id;
   this.size = {"x": 100, "y": 100};
+  this.nodes = objects;
 }
 
 function Node(id, label, x, y) {
