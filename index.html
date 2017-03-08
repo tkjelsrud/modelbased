@@ -21,8 +21,6 @@
         var paper = 0;
       
       	window.onload = function() {
-          // Creates canvas 320 × 200 at 10, 50
-          //paper = Raphael(10, 50, 640, 480);
           paper = new Raphael(document.getElementById("canvas"), 800, 600);
 
           
@@ -35,13 +33,14 @@
           })
           */
           createTestScope();
+          Draw();
         }
       
       	function LoadScope(sId) {
           cscope = JSON.parse(localStorage.getItem(sId));
-          if(scope) {
+          if(cscope) {
             // Load nodes
-            DrawGrid();
+            Draw();
           }
           else {
             // Error handling 
@@ -80,15 +79,6 @@
       	  var newPath = paper.path('M'+bb1.cx+','+bb1.cy+'L'+bb2.cx+','+bb2.cy);
       	  newPath.attr({ stroke: 'blue'})*/
 
-        }
-      
-      	function PlaceNodes() {
-          for(i = 0; i < scope.objects.length; i++) {
-            o = scope.objects[i];
-			// Fill the region on grid
-			$("grid." + o.loc.x + "." + o.loc.y).css("color", "grey");
-            // Add sub elements (queues) to the node?
-          }
         }
       
       	function RunSimulation() { 
