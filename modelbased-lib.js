@@ -8,6 +8,7 @@ function Scope(id, timer, objects) {
 
 function Node(id, label, x, y) {
   this.id = id;
+  this.svgid = -1;
   this.label = label;
   this.x = x;
   this.y = y;
@@ -15,7 +16,7 @@ function Node(id, label, x, y) {
 
 function GetNode(id) {
   for(i = 0; i < cscope.nodes.length; i++)
-    if(cscope.nodes[i].id == id)
+    if(cscope.nodes[i].id == id || cscope.nodes[i].svgid == id)
       return cscope.nodes[i];
   return null;
 }
