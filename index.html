@@ -23,17 +23,20 @@
           
           // Sets the stroke attribute of the circle to white
           circle.attr("stroke", "#fff");
-          //$(circle).draggable();
           
           circle.attr({
             cursor: 'pointer',
-          }).mouseover(function(e) {
+          }).mouseup(function(e) {
+            alert("clicked " + e);
+          }); 
+          
+          /*
+          .mouseover(function(e) {
             background.attr('fill', COLOR_HOVER);
           }).mouseout(function(e) {
             background.attr('fill', COLOR_NORMAL);
-          }).mouseup(function(e) {
-            alert("clicked");
-          }); 
+          })
+          */
         }
       
       	function LoadScope(sId) {
