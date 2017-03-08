@@ -52,7 +52,7 @@
         }
       
       	function LoadScope(sId) {
-          scope = localStorage.getItem(sId);
+          scope = JSON.parse(localStorage.getItem(sId));
           if(scope) {
             // Load nodes
             DrawGrid();
@@ -60,6 +60,13 @@
           else {
             // Error handling 
           }
+        }
+      
+        function SaveScope(sId) {
+         localStorage.setItem(sId, JSON.stringify(scope));
+
+		//...
+		//var storedNames = JSON.parse(localStorage.getItem("names")); 
         }
       
     	function DrawGrid() {
