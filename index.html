@@ -74,6 +74,11 @@
             n = cscope.nodes[i];
           	var re = paper.rect( n.x, n.y, 50, 50 );
           	re.attr("fill", "#ff0000");
+            re.attr({
+            	cursor: 'pointer',
+          	}).mouseup(function(e) {
+            	alert("clicked " + this.id);
+          	});
           }
           
           /*bb1 = circle.getBBox();    
