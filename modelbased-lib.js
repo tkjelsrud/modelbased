@@ -1,3 +1,5 @@
+cscope = 0;
+
 function Scope(id, timer, objects) {
 
 }
