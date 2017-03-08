@@ -6,7 +6,8 @@
 
 -->
   <head>
-    <script>
+    <script type="text/javascript" src="modelbased-lib.js"></script>
+	<script type="text/javascript">
         var scope = {};
       
       	function LoadScope(sId) {
@@ -41,7 +42,20 @@
       	function RunSimulation() { 
        	  // Nodes sorted by sequence
           // 
+          maxItr = 999;
+          que = new Array();
+          for(i = 0; i < maxIter; i++) {
+            que = RunEvents(que);
+            if(que == null)
+              break;
+          }
         }
+      
+      function RunEvents(que) {
+        // Iterate through all objects that have scripts
+        // The scope timer is such a script (sets max iterations)
+        
+      }
       
     </script>
   </head>
