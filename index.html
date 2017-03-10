@@ -80,7 +80,7 @@
         margin-right: 10px;
       }
 
-      #popup {
+      .popup {
         position: absolute;
         background-color: #EEE;
         width: auto;
@@ -90,7 +90,7 @@
         font-size: 10px;
       }
 
-      #popup .bar {
+      .popup .bar {
         background-color: #DDD;
         width: 200px;
         height: 20px;
@@ -98,11 +98,11 @@
         padding: 2px;
       }
 
-      #popup .bar a {
+      .popup .bar a {
         float: right;
       }
 
-      #popup .container {
+      .popup .container {
         width: auto;
         height: auto;
         min-height: 50px;
@@ -110,12 +110,12 @@
         padding: 2px;
       }
 
-      #popup .container .label {
+      .popup .container .label {
         float: left;
         width: 40%;
       }
 
-      #popup .container .value {
+      .popup .container .value {
         float: left;
         width: 40%;
       }
@@ -138,13 +138,15 @@
       <span class="action"><a href="javascript:void(AddNode());void(Draw());">Add node</a> | <a href="javascript:void(SaveScope(sid));">Save</a></span>
     </div>
     <div id="canvas">&nbsp;</div>
-    <div id="popup">
-      <div class="bar"><span class="title">&nbsp;</span><a href="javascript:void($('#popup').hide());">X</a></div>
-      <div class="container base">&nbsp;</div>
-      <div class="bar">Properties</div>
-      <div class="container props">&nbsp;</div>
-      <div class="bar logic">Logic</div>
-      <div class="container logic">&nbsp;</div>
+    <div id="popups">
+    	<div class="popup">
+          <div class="bar"><span class="title">&nbsp;</span><a href="javascript:void($('#popup').hide());">X</a></div>
+          <div class="container base">&nbsp;</div>
+          <div class="bar">Properties</div>
+          <div class="container props">&nbsp;</div>
+          <div class="bar logic">Logic</div>
+          <div class="container logic">&nbsp;</div>
+      	</div>
     </div>
   </body>
 </html>
