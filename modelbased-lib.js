@@ -1,4 +1,5 @@
 cscope = 0;
+cscopeList = new Array();
 drag = null;
 
 function Scope(id, timer, objects) {
@@ -10,10 +11,11 @@ function Scope(id, timer, objects) {
 function Node(id, label, x, y) {
   this.id = id;
   this.vid = -1;
-  this.label = label;
+  this.props = {"label": label, "prop2": "hallo"};
+  //this.label = label;
   this.x = x;
   this.y = y;
-  this.props = {"prop1": "test", "prop2": "hallo"};
+
   this.tags = [["INC", "123", "Hello INC", 1],["INC", "2", "Hello INC 2", 3]];
   this.logic = {"event1": [1,2,3], "event2": [4,5,6]};
 }
@@ -52,6 +54,7 @@ function createTestScope() {
 function Draw() {
     //paper = new Raphael(document.getElementById("canvas"), 800, 600);
     $("#canvas").empty();
+    $("#popups").empty();
        //c.drag(move, start, up);
        //c.sizer = s;
        //s.drag(rmove, rstart);
@@ -60,13 +63,20 @@ function Draw() {
     for(i = 0; i < cscope.nodes.length; i++) {
       n = cscope.nodes[i];
       cscope.nodes[i].vid = "n_" + n.id;
-      d = $("<div id=\"n_" + n.id + "\" class=\"node\" style=\"left:" + n.x + "px;top:" + n.y + "px;\">" + n.label + "</div>");
+      d = $("<div id=\"n_" + n.id + "\" class=\"node\" style=\"left:" + n.x + "px;top:" + n.y + "px;\">" + n.props["label"] + "</div>");
       $(d).draggable();
       $(d).click(function(ev) {
         ShowPopup(this.id);
       });
       $("#canvas").append(d);
 
+      // Adding popups pr node
+
+      p = $("<div id=\"p_" + n.id + "\" class=\"popup\"><div class=\"bar\"><span class=\"title\">&nbsp;</span><a href=\"javascript:void($('#p_" + n.id + "').hide());\">X</a></div><div class=\"container base\">&nbsp;</div><div class=\"bar\">Properties</div><div class=\"container props\">&nbsp;</div><div class=\"bar logic\">Logic</div><div class=\"container logic\">&nbsp;</div></div>");
+      $(p).hide();
+      //$(p).draggable();
+
+      $("#popups").append(p);
       //var re = paper.rect( n.x, n.y, 50, 50 );
       //re.attr("nid", n.id);
       //n.svgid = re.id;
@@ -84,28 +94,50 @@ function Draw() {
 
 function ShowPopup(nid) {
   n = GetNode(nid);
-  $("#popup .title").text(n.label);
+  //$("#p_" + n.id).text(n.label);
 
-  $("#popup .container.base").empty();
-  AddPopupElements("#popup .container.base", {"id": n.id, "label": n.label});
+  $("#p_" + n.id + " .container.base").empty();
+  $("#p_" + n.id + " .container.base").append("<div class=\"label\">Id</div><div class=\"value\"><a href=\"?sid=" + QueryString.sid + "." + n.id + "\">" + n.id + "</a></div>");
+  //AddPopupElements(n.id, "#p_" + n.id + " .container.base", {"id": n.id, "label": n.label});
 
-  $("#popup .container.logic").empty();
+  $("#p_" + n.id + " .container.logic").empty();
   if(n.logic) {
-    AddPopupElements("#popup .container.logic", n.logic);
+    AddPopupElements(n.id, "#p_" + n.id + " .container.logic", n.logic);
     //$("#popup .container.logic").text(JSON.stringify(n.logic));
   }
-  $("#popup .container.props").empty();
+  $("#p_" + n.id + " .container.props").empty();
   if(n.props) {
-    AddPopupElements("#popup .container.props", n.props);
+    AddPopupElements(n.id, "#p_" + n.id + " .container.props", n.props);
   }
-  $("#popup").show();
-  $("#popup").offset({ top: $("#" + nid).offset().top + 20, left: $("#" + nid).offset().left + 20});
+  $("#p_" + n.id).show();
+  $("#p_" + n.id).offset({ top: $("#" + nid).offset().top + 20, left: $("#" + nid).offset().left + 20});
 }
 
-function AddPopupElements(cont, data) {
+function AddPopupElements(id, cont, data) {
   for(k in data) {
-    $(cont).append("<div class=\"label\">" + k + "</div><div class=\"value\" contenteditable=\"true\" onblur=\"alert('edit')\">" + data[k] + "</div>");
+    $(cont).append("<div class=\"label\">" + k + "</div><div id=\"" + id + "_" + k + "\" class=\"value\" contenteditable=\"true\" onblur=\"void(EditField('" + id + "','" + k + "'));\">" + data[k] + "</div>");
   }
+}
+
+function EditField(id, key) {
+  //alert(JSON.stringify(id) + JSON.stringify(key));
+  val = $("#" + id + "_" + key).text();
+  n = GetNode(id);
+  n.props[key] = val;
+  //alert(cscope.nodes[id].props[key]);
+}
+
+function LoadScopeList() {
+  cscopeList = JSON.parse(localStorage.getItem("scopes"));
+  if(!cscopeList)
+    cscopeList = new Array();
+  return cscopeList;
+}
+
+function UpdateScopeList(sc) {
+  cscopeList[sc] = 1;
+
+  localStorage.setItem("scopes", JSON.stringify(cscopeList));
 }
 
 function LoadScope(sId) {
@@ -152,3 +184,7 @@ var QueryString = function () {
   }
   return query_string;
 }();
+
+function Export() {
+  return JSON.stringify(cscope);
+}
