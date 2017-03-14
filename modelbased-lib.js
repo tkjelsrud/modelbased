@@ -122,7 +122,7 @@ function AddPopupElements(id, cont, data) {
 
 function EditField(id, key) {
   //alert(JSON.stringify(id) + JSON.stringify(key));
-  val = $("#" + id + "_" + key).text();
+  val = $("#" + id + "_" + key).html();
   val = val.replace("\n", "<br/>");
   n = GetNode(id);
   if(key == "logic")
