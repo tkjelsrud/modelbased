@@ -62,7 +62,7 @@ function Draw() {
     for(i = 0; i < cscope.nodes.length; i++) {
       n = cscope.nodes[i];
       cscope.nodes[i].vid = "n_" + n.id;
-      label = ("label" in n.props? n.props["label"] : "");
+      label = (n.props && "label" in n.props? n.props["label"] : "");
       d = $("<div id=\"n_" + n.id + "\" class=\"node\" style=\"left:" + n.x + "px;top:" + n.y + "px;\">" + label + "<div class=\"tags\"><ul><li>123</li><li>234</li></ul></div></div>");
       $(d).draggable();
       $(d).click(function(ev) {
