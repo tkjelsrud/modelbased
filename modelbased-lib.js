@@ -12,12 +12,11 @@ function Node(id, label, x, y) {
   this.id = id;
   this.vid = -1;
   this.props = {"label": label, "prop2": "hallo"};
-  //this.label = label;
   this.x = x;
   this.y = y;
 
   this.tags = [["INC", "123", "Hello INC", 1],["INC", "2", "Hello INC 2", 3]];
-  this.logic = {"event1": [1,2,3], "event2": [4,5,6]};
+  this.logic = new Array();
 }
 
 function Prop(id, value) {
@@ -100,15 +99,16 @@ function ShowPopup(nid) {
   $("#p_" + n.id + " .container.base").append("<div class=\"label\">Id</div><div class=\"value\"><a href=\"?sid=" + QueryString.sid + "." + n.id + "\">" + n.id + "</a></div>");
   //AddPopupElements(n.id, "#p_" + n.id + " .container.base", {"id": n.id, "label": n.label});
 
-  $("#p_" + n.id + " .container.logic").empty();
-  if(n.logic) {
-    AddPopupElements(n.id, "#p_" + n.id + " .container.logic", n.logic);
-    //$("#popup .container.logic").text(JSON.stringify(n.logic));
-  }
   $("#p_" + n.id + " .container.props").empty();
   if(n.props) {
     AddPopupElements(n.id, "#p_" + n.id + " .container.props", n.props);
   }
+  
+  $("#p_" + n.id + " .container.logic").empty();
+  if(n.logic) {
+    $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" onblur=\"void(EditField('" + id + "','logic'));\">" + n.logic.join("\n") + "</div>");
+  }
+  
   $("#p_" + n.id).show();
   $("#p_" + n.id).offset({ top: $("#" + nid).offset().top + 20, left: $("#" + nid).offset().left + 20});
 }
