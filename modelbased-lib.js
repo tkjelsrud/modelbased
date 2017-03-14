@@ -123,8 +123,12 @@ function AddPopupElements(id, cont, data) {
 function EditField(id, key) {
   //alert(JSON.stringify(id) + JSON.stringify(key));
   val = $("#" + id + "_" + key).text();
+  val = val.replace("\n", "<br/>");
   n = GetNode(id);
-  n.props[key] = val;
+  if(key == "logic")
+    n.logic = val;
+  else
+  	n.props[key] = val;
   //alert(cscope.nodes[id].props[key]);
 }
 
