@@ -49,8 +49,10 @@
         
         function ToggleTableView() {
           $(".popup").hide();
-          $("#canvas").toggle()
-          $("#table").toggle()
+          $("#canvas").toggle();
+          $("#table").toggle();
+          
+          alert($("#table").is(":visible")); 
         }
         
         function DrawTable() {
