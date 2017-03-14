@@ -45,6 +45,19 @@
           LoadScope(sid);
           Draw();
         }
+        
+        function ToggleTableView() {
+          $(".popup").hide();
+          $("#canvas").toggle()
+          $("#table").toggle()
+        }
+        
+        function DrawTable() {
+          $("#table").empty();
+          $("#table").append("<table><tr><td>123</td><td>234</td></tr><tr><td>A</td><td>B</td></tr></table>");
+          
+          // Populate structure from cscope source data
+        }
 
       	function RunSimulation() {
        	  // Nodes sorted by sequence
@@ -221,6 +234,7 @@
         </ul>
     </div>
     <div id="canvas">&nbsp;</div>
+    <div id="table">&nbsp;</div>
     <div id="popups">
     	<div class="popup">
           &nbsp;
