@@ -16,7 +16,7 @@ function Node(id, label, x, y) {
   this.y = y;
 
   this.tags = [["INC", "123", "Hello INC", 1],["INC", "2", "Hello INC 2", 3]];
-  this.logic = new Array();
+  this.logic = "";
 }
 
 function Prop(id, value) {
@@ -107,7 +107,7 @@ function ShowPopup(nid) {
   
   $("#p_" + n.id + " .container.logic").empty();
   if(n.logic) {
-    $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" onblur=\"void(EditField('" + n.id + "','logic'));\">" + n.logic.join("\n") + "</div>");
+    $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" onblur=\"void(EditField('" + n.id + "','logic'));\">" + n.logic + "</div>");
   }
   
   $("#p_" + n.id).show();
