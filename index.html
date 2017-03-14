@@ -52,7 +52,9 @@
           $("#canvas").toggle();
           $("#table").toggle();
           
-          alert($("#table").is(":visible")); 
+          if($("#table").is(":visible") == "true") {
+            DrawTable();
+          }
         }
         
         function DrawTable() {
