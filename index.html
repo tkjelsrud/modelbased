@@ -41,7 +41,7 @@
 
           $("#tabs").empty();
           for(cs in cscopeList) {
-            $("#tabs").append("<li class=\"" + (cs == sid ? "active": "") + "\"><a href=\"?sid=" + cs + "\">" + cs + "</a></li>");
+            $("#tabs").append("<li class=\"" + (cscopeList[cs] == sid ? "active": "") + "\"><a href=\"?sid=" + cscopeList[cs] + "\">" + cscopeList[cs] + "</a></li>");
           }
 
           LoadScope(sid);
