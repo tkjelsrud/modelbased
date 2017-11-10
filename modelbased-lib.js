@@ -63,7 +63,8 @@ function Draw() {
       n = cscope.nodes[i];
       cscope.nodes[i].vid = "n_" + n.id;
       label = (n.props && "label" in n.props? n.props["label"] : "");
-      d = $("<div id=\"n_" + n.id + "\" class=\"node\" style=\"left:" + n.x + "px;top:" + n.y + "px;\"><span id=\"n_" + n.id + "_label\">" + label + "</span><div class=\"tags\"><ul><li>123</li><li>234</li></ul></div></div>");
+      d = $("<div id=\"n_" + n.id + "\" class=\"node\"><span id=\"n_" + n.id + "_label\">" + label + "</span><div class=\"tags\"><ul><li>123</li><li>234</li></ul></div></div>");
+      $(d).offset({top: n.y, left: n.x});
       $(d).draggable();
       $(d).click(function(ev) {
         ShowPopup(this.id);
