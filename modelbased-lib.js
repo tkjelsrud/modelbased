@@ -115,6 +115,7 @@ function ShowPopup(nid) {
   if(n.props) {
     AddPopupElements(n.id, "#p_" + n.id + " .container.props", n.props);
   }
+  $("#p_" + n.id + " .container.props").append("<a class=\"add\" href=\"#\">[+]</a>");
   
   $("#p_" + n.id + " .container.logic").empty();
   if(n.logic) {
