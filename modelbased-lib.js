@@ -75,7 +75,7 @@ function Draw() {
       
       d = $("<div id=\"n_" + n.id + "\" class=\"node\"><span id=\"n_" + n.id + "_label\">" + label + "</span><div class=\"tags\">" + tags + "</div></div>");
 
-      $(d).draggable();
+      $(d).draggable({ grid: [ 10, 10 ] });
       $(d).click(function(ev) {
         ShowPopup(this.id);
       });
