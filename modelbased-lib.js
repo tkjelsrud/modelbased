@@ -125,10 +125,12 @@ function EditField(id, key) {
   val = $("#" + id + "_" + key).html();
   val = val.replace("\n", "<br/>");
   n = GetNode(id);
+  
+  if(key == "label")
+    $("#n_" + id + "_label").html(val);
+  
   if(key == "logic")
     n.logic = val;
-  else if(key == "label")
-    $("#n_" + id + "_label").html(val);
   else
   	n.props[key] = val;
   
