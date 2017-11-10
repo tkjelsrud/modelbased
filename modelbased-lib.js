@@ -156,7 +156,7 @@ function LoadScopeList() {
 }
 
 function UpdateScopeList(sc) {
-  if(cscopeList.indexOf(sc) == -1) 
+  if(cscopeList.indexOf("" + sc) == -1) 
   	cscopeList.push(sc);
   
   localStorage.setItem("scopes", JSON.stringify(cscopeList));
