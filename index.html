@@ -34,6 +34,8 @@
 
           LoadScopeList();
           sid = QueryString.sid;
+          if(!sid)
+            	sid = "default";
           UpdateScopeList(sid);
 
           $("#tabs").empty();
