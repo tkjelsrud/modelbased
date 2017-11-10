@@ -108,7 +108,7 @@ function ShowPopup(nid) {
   //$("#p_" + n.id).text(n.label);
 
   $("#p_" + n.id + " .container.base").empty();
-  $("#p_" + n.id + " .container.base").append("<div class=\"label\">Id</div><div class=\"value\"><a href=\"?sid=" + QueryString.sid + "." + n.id + "\">" + n.id + "</a></div>");
+  //$("#p_" + n.id + " .container.base").append("<div class=\"label\">Id</div><div class=\"value\"><a href=\"?sid=" + QueryString.sid + "." + n.id + "\">" + n.id + "</a></div>");
   //AddPopupElements(n.id, "#p_" + n.id + " .container.base", {"id": n.id, "label": n.label});
 
   $("#p_" + n.id + " .container.props").empty();
