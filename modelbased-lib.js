@@ -60,6 +60,7 @@ function Draw() {
        //s.big = c;
 
     for(i = 0; i < cscope.nodes.length; i++) {
+      console.log("node" + i);
       n = cscope.nodes[i];
       cscope.nodes[i].vid = "n_" + n.id;
       label = (n.props && "label" in n.props? n.props["label"] : "");
@@ -75,7 +76,7 @@ function Draw() {
       tags += "</ul>";
       
       d = $("<div id=\"n_" + n.id + "\" class=\"node\"><span id=\"n_" + n.id + "_label\">" + label + "</span><div class=\"tags\">" + tags + "</div></div>");
-      
+      console.log("node added" + i);
       $(d).draggable();
       $(d).click(function(ev) {
         ShowPopup(this.id);
