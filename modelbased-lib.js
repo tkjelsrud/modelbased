@@ -55,6 +55,7 @@ function GetNodeFromLoc(x, y, c = 0) {
   xmax = x + (x * c);
   ymin = y - (y * c);
   ymax = y + (y * c);
+  console.log(xmin + " " + xmax + " " + ymin + " " + ymax);
   for(i = 0; i < cscope.nodes.length; i++) {
     if(xmin <= cscope.nodes[i].x <= xmax && ymin <= cscope.nodes[i].y <= ymax)
       return cscope.nodes[i];
