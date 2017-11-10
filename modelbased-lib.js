@@ -50,6 +50,19 @@ function createTestScope() {
   //scope.size.y = 10;
 }
 
+function GetNodeFromLoc(x, y, c = 0) {
+  xmin = x - (x * c);
+  xmax = x + (x * c);
+  ymin = y - (y * c);
+  ymax = y + (y * c);
+  for(i = 0; i < cscope.nodes.length; i++) {
+    if(xmin < cscope.nodes[i].x <= xmax && ymin < cscope.nodes[i].y < ymax)
+      return cscope.nodes[i];
+  }
+  
+  return null;
+}
+
 function Draw() {
     //paper = new Raphael(document.getElementById("canvas"), 800, 600);
     $("#canvas").empty();
