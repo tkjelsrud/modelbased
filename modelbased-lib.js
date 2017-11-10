@@ -82,7 +82,7 @@ function Draw() {
       $("#canvas").append(d);
 
       // Adding popups pr node
-      p = $("<div id=\"p_" + n.id + "\" class=\"popup\"><div class=\"bar\"><span class=\"title\">&nbsp;</span><a href=\"javascript:void($('#p_" + n.id + "').hide());\">X</a></div><div class=\"container base\">&nbsp;</div><div class=\"bar\">Properties</div><div class=\"container props\">&nbsp;</div><div class=\"bar logic\">Logic</div><div class=\"container logic\">&nbsp;</div></div>");
+      p = $("<div id=\"p_" + n.id + "\" class=\"popup\"><div class=\"bar\"><span class=\"title\">&nbsp;</span><a href=\"javascript:void($('#p_" + n.id + "').hide());\">X</a></div><div class=\"bar\">Properties</div><div class=\"container props\">&nbsp;</div><div class=\"bar logic\">Logic</div><div class=\"container logic\">&nbsp;</div></div>");
       $(p).hide();
       //$(p).draggable();
 
