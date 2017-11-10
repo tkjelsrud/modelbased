@@ -65,13 +65,14 @@ function Draw() {
       label = (n.props && "label" in n.props? n.props["label"] : "");
       
       tags = "&nbsp;";
-      /*tags = "<ul>";
+      tags = "<ul>";
       if(n.tags) {
         for(i = 0; i < n.tags.length; i++) {
-         tags += "<li>" + n.tags[i][2] + "</li>";
+          console.log(n.tags[i]);
+          tags += "<li>" + n.tags[i][2] + "</li>";
         }
       }
-      tags += "</ul>";*/
+      tags += "</ul>";
       
       d = $("<div id=\"n_" + n.id + "\" class=\"node\"><span id=\"n_" + n.id + "_label\">" + label + "</span><div class=\"tags\">" + tags + "</div></div>");
       
