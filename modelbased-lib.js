@@ -23,8 +23,8 @@ function GetLogicFunc(nid, handle = "") {
   // Return runnable part of logic (code)
   n = GetNode(nid);
   code = n.logic;
-  code = code.replace(/<div>/, "");
-  code = code.replace(/<\/div>|<br>|<br\/>/g, "\n");
+  code = code.replace(/<div>|<p>/, "");
+  code = code.replace(/<\/div>|<\/p>|<br>|<br\/>/g, "\n");
   
   if(handle == "") {
    	// Get the global scope 
