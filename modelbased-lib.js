@@ -107,7 +107,7 @@ function Draw() {
       //re.attr("fill", "#ff0000");
       //ft = paper.freeTransform(re, { distance: 1, rotate: false });
       //ft.hideHandles();
-      $(d).offset({top: n.y, left: n.x});
+      $(d).offset({top: n.y - (n.y % 10), left: n.x - (n.x % 10)});
     }
 
     /*bb1 = circle.getBBox();
