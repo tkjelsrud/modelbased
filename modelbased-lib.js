@@ -23,7 +23,7 @@ function GetLogicFunc(nid, handle = "") {
   // Return runnable part of logic (code)
   n = GetNode(nid);
   code = n.logic;
-  code = code.replace(/<div>|<p>/, "");
+  code = code.replace(/<div>|<p>/g, "");
   code = code.replace(/<\/div>|<\/p>|<br>|<br\/>/g, "\n");
   
   if(handle == "") {
