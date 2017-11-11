@@ -19,6 +19,21 @@ function Node(id, label, x, y) {
   this.logic = "";
 }
 
+function GetLogicFunc(nid, handle = "") {
+  // Return runnable part of logic (code)
+  n = GetNode(nid);
+  code = n.logic;
+  code = code.replace("<div>", "");
+  code = code.replace(new Array("</div>", "<br>", "<br/>"), "\n");
+  
+  if(handle == "") {
+   	// Get the global scope 
+  }
+  else {
+    console.log(code);
+  }
+}
+
 function Prop(id, value) {
 
 }
@@ -223,4 +238,19 @@ var QueryString = function () {
 
 function Export() {
   return JSON.stringify(cscope);
+}
+
+function ResetSimulation() {
+  ClearDependencies();
+  
+  // Build dependencies and links
+  
+  // Run all reset routines for nodes
+  
+  
+}
+
+function RunSimulationCycle() {
+  for(i = 0; i < cscope.nodes.length; i++) {
+    cscope.nodes[i].
 }
