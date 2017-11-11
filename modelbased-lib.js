@@ -132,7 +132,7 @@ function ShowPopup(nid) {
 
   $("#p_" + n.id + " .container.logic").empty();
   //if(n.logic) {
-  $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" onblur=\"void(EditField('" + n.id + "','logic'));\">" + n.logic + "</div>");
+  $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" style=\"width:100%\" onblur=\"void(EditField('" + n.id + "','logic'));\">" + n.logic + "</div>");
   //}
   
   $("#p_" + n.id).show();
