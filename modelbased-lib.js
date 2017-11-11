@@ -96,7 +96,7 @@ function Draw() {
       $("#canvas").append(d);
 
       // Adding popups pr node
-      p = $("<div id=\"p_" + n.id + "\" class=\"popup\"><div class=\"bar\"><span class=\"title\">&nbsp;</span><a href=\"javascript:void($('#p_" + n.id + "').hide());\">X</a></div><div class=\"bar\">Properties</div><div class=\"container props\">&nbsp;</div><div class=\"bar logic\">Logic</div><div class=\"container logic\">&nbsp;</div></div>");
+      p = $("<div id=\"p_" + n.id + "\" class=\"popup\"><div class=\"bar\"><span class=\"title\">&nbsp;</span><a href=\"javascript:void($('#p_" + n.id + "').hide());\">X</a><div class=\"container props\">&nbsp;</div><div class=\"bar logic\">Logic</div><div class=\"container logic\">&nbsp;</div></div>");
       $(p).hide();
       //$(p).draggable();
 
@@ -131,9 +131,9 @@ function ShowPopup(nid) {
   }
 
   $("#p_" + n.id + " .container.logic").empty();
-  if(n.logic) {
-    $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" onblur=\"void(EditField('" + n.id + "','logic'));\">" + n.logic + "</div>");
-  }
+  //if(n.logic) {
+  $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" onblur=\"void(EditField('" + n.id + "','logic'));\">" + n.logic + "</div>");
+  //}
   
   $("#p_" + n.id).show();
   $("#p_" + n.id).offset({ top: $("#" + nid).offset().top + 20, left: $("#" + nid).offset().left + 20});
