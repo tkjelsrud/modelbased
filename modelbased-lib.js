@@ -252,5 +252,6 @@ function ResetSimulation() {
 
 function RunSimulationCycle() {
   for(i = 0; i < cscope.nodes.length; i++) {
-    cscope.nodes[i].
+    //cscope.nodes[i]
+  }
 }
