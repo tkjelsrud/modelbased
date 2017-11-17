@@ -21,8 +21,7 @@ document.onkeydown = checkKey;
 function checkKey(e) {
 
     e = e || window.event;
-  
-   console.log(e.charCode);
+
 
     if (e.keyCode == '38') {
         // up arrow
@@ -40,6 +39,9 @@ function checkKey(e) {
        // right arrow
       console.log("ri");
     }
+  else {
+    alert(String.fromCharCode(e.which));
+  }
 
 }
     </script>
