@@ -6,47 +6,152 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
 
+    <style>
+      body {
+        font-family: "Courier New";
+      }
+      textarea {
+        width: 90%;
+        min-height: 100px;
+        border: 0;
+        resize: none;
+      }
+      #entries {
+        height: 80%;
+      }
+      /*.entry:nth-of-type(odd) {
+        background-color: #DDD;
+      }*/
+      .key {
+        float: left;
+        width: 20%;
+        vertical-align: top;
+        color: #999;
+      }
+      .value {
+        float: left;
+        width: 70%;
+      }
+    </style>
+
     <script src="jquery-3.1.1.min.js"></script>
     <script src="jquery-ui.js"></script>
 
     <script type="text/javascript">
-document.onkeydown = checkKey;
+      //document.onkeydown = checkKey;
       var state = "";
+      var ctx = "/";
+      var id = 0;
+      var data = [];
 
-     function setState(s) {
-      state = s;
-     }
-      
-      
-function checkKey(e) {
+      function setState(s) {
+        state = s;
+      }
 
-    e = e || window.event;
+      function changeInput(elem) {
+        var key = window.event.keyCode;
 
+        if (key === 13) {
+            doFunction(elem.value.trim());
+            $("#" + elem.id).val("");
+            return false;
+        }
+        else {
+            return true;
+        }
+      }
 
-    if (e.keyCode == '38') {
-        // up arrow
-      console.log("up");
-    }
-    else if (e.keyCode == '40') {
-        // down arrow
-      console.log("dn");
-    }
-    else if (e.keyCode == '37') {
-       // left arrow
-      console.log("lf");
-    }
-    else if (e.keyCode == '39') {
-       // right arrow
-      console.log("ri");
-    }
-  else {
-    alert(String.fromCharCode(e.which));
-  }
+      function entry(txt) {
+        key = txt.substr(0,txt.indexOf(' ')).trim(); // "72"
+        val = txt.substr(txt.indexOf(' ')+1).trim();
+        typ = "*";
+        //console.log(key +"/" + val + "/");
+        if(val.split(/\r\n|\r|\n/).length > 1)
+          typ = "LIST";
 
-}
+        if(!key) {
+          key = "*";
+        }
+
+        return {"id": id++, "ctx": ctx, "key": key, "val": val, "typ": typ};
+      }
+
+      function doFunction(txt) {
+        //console.log(txt);
+        if(txt.toUpperCase().startsWith("DIR "))
+          return callDir(txt.substring(4), true);
+        else if(txt.toUpperCase().startsWith("/"))
+          return callDir(txt, false);
+        else if(txt.toUpperCase().startsWith("$"))
+          return null;
+        else {
+          en = entry(txt);
+          data.push(en);
+          console.log(en);
+          drawEntry(en);
+        }
+
+        return null;
+      }
+
+      function drawEntry(en) {
+        $("#entries").append("<div id=\"" + en.id + "\" class=\"entry\"><div class=\"key\">" + en.key + "</div><div class=\"value\">" + en.val + "</div></div>");
+      }
+
+      function callDir(txt, rel) {
+        //console.log("DIRING " + txt);
+        if(rel)
+          txt = ctx + "/" + txt
+        ctx = txt;
+
+        $("#entries").empty();
+        for(i = 0; i < data.length; i++) {
+          if(data[i].ctx == ctx)
+            drawEntry(data[i]);
+        }
+        // Read entries from the context and display
+
+        $("#ctx").text(ctx);
+      }
+
+      /*function checkKey(e) {
+        e = e || window.event;
+
+        if (e.keyCode == '38') {
+            // up arrow
+          console.log("up");
+        }
+        else if (e.keyCode == '40') {
+            // down arrow
+          console.log("dn");
+        }
+        else if (e.keyCode == '37') {
+           // left arrow
+          console.log("lf");
+        }
+        else if (e.keyCode == '39') {
+           // right arrow
+          console.log("ri");
+        }
+        else {
+          alert(String.fromCharCode(e.which));
+        }
+
+      }*/
+
+      function onTime() {
+        if(! $("#input").is(':focus'))
+          $("#input").focus();
+
+        setTimeout(onTime, 500);
+      }
+
+      setTimeout(onTime, 500);
     </script>
 </head>
 <body>
-yes
+  <div id="ctx">&nbsp;</div>
+  <div id="entries">&nbsp;</div>
+  <textarea id="input" onFocus="this.select();" name="test" onkeypress="return changeInput(this);"></textarea>
 </body>
 </html>
