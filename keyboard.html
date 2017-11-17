@@ -10,22 +10,30 @@
     <script src="jquery-ui.js"></script>
 
     <script type="text/javascript">
-      document.addEventListener('keydown', (event) {
-      const keyName = event.key;
+document.onkeydown = checkKey;
 
-  if (keyName === 'Control') {
-    // do not alert when only Control key is pressed.
-    return;
-  }
+function checkKey(e) {
 
-  if (event.ctrlKey) {
-    // Even though event.key is not 'Control' (i.e. 'a' is pressed),
-    // event.ctrlKey may be true if Ctrl key is pressed at the time.
-    alert(`Combination of ctrlKey + ${keyName}`);
-  } else {
-    alert(`Key pressed ${keyName}`);
-  }
-}, false);
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+        // up arrow
+      console.log("up");
+    }
+    else if (e.keyCode == '40') {
+        // down arrow
+      console.log("dn");
+    }
+    else if (e.keyCode == '37') {
+       // left arrow
+      console.log("lf");
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+      console.log("ri");
+    }
+
+}
     </script>
 </head>
 <body>
