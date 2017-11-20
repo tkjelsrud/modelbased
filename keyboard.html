@@ -9,19 +9,44 @@
     <style>
       body {
         font-family: "Courier New";
+        -webkit-font-smoothing: antialiased;
       }
       textarea {
         width: 90%;
         min-height: 100px;
         border: 0;
         resize: none;
+        outline: 1px solid grey;
+        padding-left: 10px;
+        padding-top: 4px;
+        font-size: 16px;
+        margin: 0;
       }
+      /*input:focus,
+      select:focus,
+      textarea:focus,
+      button:focus {
+        outline: none;
+      }*/
       #entries {
         height: 80%;
       }
       /*.entry:nth-of-type(odd) {
         background-color: #DDD;
       }*/
+      #hint {
+        position: relative;
+        top: -30px;
+        color: red;
+        display: none;
+      }
+      .entry {
+        float: left;
+        width: 100%;
+      }
+      .selected {
+        background-color: #efe344;
+      }
       .key {
         float: left;
         width: 20%;
@@ -39,25 +64,155 @@
 
     <script type="text/javascript">
       //document.onkeydown = checkKey;
-      var state = "";
-      var ctx = "/";
-      var id = 0;
-      var data = [];
+      //var gstate = "";
+      var gSegm = "0";
+      var gCtx = ".";
+      var gId = 0;
+      var gData = [];
+      var gSel = null;
 
       function setState(s) {
         state = s;
+      }
+
+      function nerfInput(elem) {
+        var key = window.event.keyCode;
+
+        // (Backspace) and TAB
+        if(key == 9) {
+            if(window.event.preventDefault) {
+                window.event.preventDefault();
+            }
+            return false;
+        }
       }
 
       function changeInput(elem) {
         var key = window.event.keyCode;
 
         if (key === 13) {
-            doFunction(elem.value.trim());
-            $("#" + elem.id).val("");
+            // Return
+            if(gSel) {
+              // What to do when something is selected?
+              guiDoEntry(gSel);
+              guiDeselectEntry();
+            }
+            else {
+              doFunction(elem.value.trim());
+              $("#" + elem.id).val("");
+              $("#hint").hide();
+            }
             return false;
         }
+        else if(key == 8) {
+          // BACKSPACE (delete)
+          if(gSel) {
+            delEntry(gSel);
+            guiDeselectEntry();
+            callDir(gCtx);
+          }
+          if(window.event.preventDefault) {
+            window.event.preventDefault();
+          }
+          return false;
+        }
+        else if(key == 9) {
+          // TAB
+          guiDeselectEntry();
+
+          if($("#hint").is(":visible")) {
+            doFunction($("#hint").text());
+            $("#hint").text("");
+            $("#hint").hide();
+            $("#" + elem.id).val("");
+          }
+          return false;
+        }
+        else if(key == 38) {
+          // Arrow keys
+          /*left = 37 up = 38 right = 39 down = 40*/
+
+          if(gSel) {
+            prev = $("#" + gSel).prev().attr('id');
+            if(prev)
+              gSel = prev;
+            guiSelectEntry(gSel);
+          }
+          else {
+            // Select bottom
+            gSel = null;
+            el = $(".entry").last().attr('id');
+            if(el) {
+              gSel = el;
+              guiSelectEntry(gSel);
+            }
+          }
+        }
+        else if(key == 40) {
+          // Arrow keys
+          /*left = 37 up = 38 right = 39 down = 40*/
+
+          if(gSel) {
+            next = $("#" + gSel).next().attr('id');
+            if(next) {
+              gSel = next;
+              guiSelectEntry(gSel);
+            }
+          }
+          else {
+            // Select bottom
+            gSel = null;
+            el = $(".entry").first().attr('id');
+            if(el) {
+              gSel = el;
+              guiSelectEntry(gSel);
+            }
+          }
+        }
         else {
-            return true;
+          guiDeselectEntry();
+
+          txt = elem.value.trim();
+          $("#hint").hide();
+          if(txt.lastIndexOf(".", 0) === 0) {
+            // Auto suggest other contexts
+            sEl = findContext(txt);
+            if(sEl) {
+              //$("#hint").offset
+              $("#hint").text(sEl.ctx);
+              $("#hint").show();
+              return false;
+            }
+            else {
+              $("#hint").hide();
+            }
+
+          }
+
+        }
+
+        return true;
+      }
+
+      function guiDeselectEntry() {
+        gSel = null;
+        $('.entry').removeClass('selected');
+      }
+
+      function guiSelectEntry(id) {
+        $('.entry').removeClass('selected');
+        $("#" + id).addClass('selected');
+      }
+
+      function guiDoEntry(id) {
+        en = getEntry(id);
+        if(en.typ = "HTTP") {
+          link = $("#" + id).find("a").attr("href");
+          if(link) {
+            //console.log(link);
+            //link.click();
+            var win = window.open(link, '_blank');
+          }
         }
       }
 
@@ -69,24 +224,33 @@
         if(val.split(/\r\n|\r|\n/).length > 1)
           typ = "LIST";
 
+        if(val.toUpperCase().lastIndexOf("HTTP", 0) === 0)
+          typ = "HTTP";
+
         if(!key) {
           key = "*";
         }
 
-        return {"id": id++, "ctx": ctx, "key": key, "val": val, "typ": typ};
+        return {"id": gId++, "ctx": gCtx, "key": key, "val": val, "typ": typ};
       }
 
       function doFunction(txt) {
         //console.log(txt);
         if(txt.toUpperCase().lastIndexOf("DIR ", 0) === 0)
           return callDir(txt.substring(4), true);
-        else if(txt.toUpperCase().lastIndexOf("/", 0) === 0)
+        else if(txt.toUpperCase() == "SAVE")
+          localSave();
+        else if(txt.toUpperCase() == "LOAD")
+          localLoad();
+        else if(txt == "..")
+          return callDir(gCtx.substr(0, gCtx.lastIndexOf(".")));
+        else if(txt.toUpperCase().lastIndexOf(".", 0) === 0)
           return callDir(txt, false);
         else if(txt.toUpperCase().lastIndexOf("$", 0) === 0)
           return null;
-        else {
+        else if(txt.trim() != "") {
           en = entry(txt);
-          data.push(en);
+          gData.push(en);
           console.log(en);
           drawEntry(en);
         }
@@ -94,24 +258,80 @@
         return null;
       }
 
+      function localSave() {
+        sVal = JSON.stringify(gData);
+        //console.log(sVal);
+        localStorage.setItem(gSegm, sVal);
+      }
+
+      function localLoad() {
+        // Warning, poor impl (will overwrite?)
+        gData = JSON.parse(localStorage.getItem(gSegm));
+
+        gId = 0;
+        for(i = 0; i < gData.length; i++)
+          gId = Math.max(gData[i].id + 1, gId);
+
+      }
+
+      function getContext(ctx) {
+        cArr = new Array();
+        for(i = 0; i < gData.length; i++)
+          if(gData[i].ctx == ctx)
+            cArr.push(gData[i]);
+
+        return cArr;
+      }
+
+      function findContext(txt) {
+        for(i = 0; i < gData.length; i++)
+          if(gData[i].ctx.lastIndexOf(txt, 0)  === 0)
+            return gData[i];
+        return null;
+      }
+
+      function getEntry(id) {
+        for(i = 0; i < gData.length; i++)
+          if(gData[i].id == id)
+            return gData[i];
+        return null;
+      }
+
+      function delEntry(id) {
+        for(i = 0; i < gData.length; i++)
+          if(gData[i].id == id)
+            return gData.splice(i, 1);
+        return null;
+      }
+
       function drawEntry(en) {
-        $("#entries").append("<div id=\"" + en.id + "\" class=\"entry\"><div class=\"key\">" + en.key + "</div><div class=\"value\">" + en.val + "</div></div>");
+        dVal = en.val;
+
+        if(en.typ == "HTTP") {
+          dVal = "<a href=\"" + dVal + "\" target=\"_blank\">" + dVal + "</a>";
+        }
+
+        $("#entries").append("<div id=\"" + en.id + "\" class=\"entry\"><div class=\"key\">" + en.key + "</div><div class=\"value\">" + dVal + "</div></div>");
       }
 
       function callDir(txt, rel) {
         //console.log("DIRING " + txt);
         if(rel)
-          txt = ctx + "/" + txt
-        ctx = txt;
+          txt = gCtx + "." + txt
+        gCtx = txt;
+
+        if(gCtx.trim() == "")
+          gCtx = ".";
 
         $("#entries").empty();
-        for(i = 0; i < data.length; i++) {
-          if(data[i].ctx == ctx)
-            drawEntry(data[i]);
-        }
-        // Read entries from the context and display
+        cArr = getContext(gCtx);
 
-        $("#ctx").text(ctx);
+        for(i = 0; i < cArr.length; i++) {
+          if(cArr[i].ctx == gCtx)
+            drawEntry(cArr[i]);
+        }
+
+        $("#ctx").text(gCtx);
       }
 
       /*function checkKey(e) {
@@ -152,6 +372,7 @@
 <body>
   <div id="ctx">&nbsp;</div>
   <div id="entries">&nbsp;</div>
-  <textarea id="input" onFocus="this.select();" name="test" onkeypress="return changeInput(this);"></textarea>
+  <textarea id="input" onFocus="this.select();" name="test" onkeydown="return nerfInput(this);" onkeyup="return changeInput(this);"></textarea>
+  <div id="hint">&nbsp;</div>
 </body>
 </html>
