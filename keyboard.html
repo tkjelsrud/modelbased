@@ -78,11 +78,11 @@
 
       function doFunction(txt) {
         //console.log(txt);
-        if(txt.toUpperCase().startsWith("DIR "))
+        if(txt.toUpperCase().lastIndexOf("DIR ", 0) === 0)
           return callDir(txt.substring(4), true);
-        else if(txt.toUpperCase().startsWith("/"))
+        else if(txt.toUpperCase().lastIndexOf("/", 0) === 0)
           return callDir(txt, false);
-        else if(txt.toUpperCase().startsWith("$"))
+        else if(txt.toUpperCase().lastIndexOf("$", 0) === 0)
           return null;
         else {
           en = entry(txt);
