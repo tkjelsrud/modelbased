@@ -221,9 +221,11 @@
         val = txt.substr(txt.indexOf(' ')+1).trim();
         typ = "*";
         //console.log(key +"/" + val + "/");
-        if(val.split(/\r\n|\r|\n/).length > 1)
+        if(val.split(/\r\n|\r|\n/).length > 1) {
           typ = "LIST";
-
+          // Clean the list
+          val = val.replace(/^\s*[\r\n]/gm, "");
+        }
         if(val.toUpperCase().lastIndexOf("HTTP", 0) === 0)
           typ = "HTTP";
 
