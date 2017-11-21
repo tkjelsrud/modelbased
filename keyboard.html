@@ -224,7 +224,9 @@
         if(val.split(/\r\n|\r|\n/).length > 1) {
           typ = "LIST";
           // Clean the list
-          val = val.replace(/^\s*[\r\n]/gm, "");
+          val = val.replace(/^\s*[\r\n]/gm, ""); // Blank lines
+          val = val.replace(/^\s+/gm, ""); // Blank starts
+          val = val.replace(/\s+$/gm, ""); // Blank ends
         }
         if(val.toUpperCase().lastIndexOf("HTTP", 0) === 0)
           typ = "HTTP";
