@@ -65,7 +65,8 @@ function createTestScope() {
   //scope.size.y = 10;
 }
 
-function GetNodeFromLoc(x, y, c = 0) {
+function GetNodeFromLoc(x, y, c) {
+	if(c == null) c = 0;
   xmin = x - (x * c);
   xmax = x + (x * c);
   ymin = y - (y * c);
