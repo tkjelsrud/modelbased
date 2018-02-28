@@ -19,7 +19,7 @@ function Node(id, label, x, y) {
   this.logic = "";
 }
 
-function GetLogicFunc(nid, handle = "") {
+function GetLogicFunc(nid, handle) {
   // Return runnable part of logic (code)
   n = GetNode(nid);
   code = n.logic;
