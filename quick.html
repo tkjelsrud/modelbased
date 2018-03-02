@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>v0.004</title>
+<title>v0.005</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
       var type = "PROC";
       var meta = "";
       text = text.trim();
-      if(text.startsWith("Failure on") || text.startsWith("Failure")) {
+      if(text.indexOf("Failure on") == 0 || text.indexOf("Failure") == 0) {
         type = "FAIL";
         meta = text.replace(new Array("failure on", "failure"), "");
       }
