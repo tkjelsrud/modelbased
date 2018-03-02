@@ -1,20 +1,21 @@
 <html>
 <head>
-<title>v0.002</title>
-<script type="text/javascript">
-var test1 = "User logs in\nLogin window\nChoice BankId, BankId Mobile\nFailure on Invalid input";
-document.getElementById("q").value = test1;
-  
-  function processInput() {
-    
-  }
-</script>
+<title>v0.003</title>
 </head>
 
 <body>
 <form method="GET">
   <textarea id="q" name="q">..</textarea>
   <input type="Submit" />
-  </form>
+</form>
+  <a href="javascript:void(processInput())">Process</a>
+<script type="text/javascript">
+    var test1 = "User logs in\nLogin window\nChoice BankId, BankId Mobile\nFailure on Invalid input";
+    document.getElementById("q").value = test1;
+    function processInput() {
+      var input = document.getElementById("q").value;
+      console.log(input);
+    }
+</script>
 </body>
 </html>
