@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>v0.007</title>
+<title>v0.008</title>
 </head>
 
 <body>
@@ -34,9 +34,9 @@
         type = "INPUT";
         meta = text.replace(new Array("input"), "");
       }
-      if(text.indexOf("?") >= 0) {
+      if(text.indexOf("Choice") == 0 || text.indexOf("?") >= 0) {
         type = "CHOICE";
-        meta = text.replace("?", "");
+        meta = text.replace(new Array("Choice", "?"), "");
       }
       return {'type': type, 'meta': meta.trim()};
     }
