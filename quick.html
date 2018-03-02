@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>v0.006</title>
+<title>v0.007</title>
 </head>
 
 <body>
@@ -50,6 +50,8 @@
       for(i = 0; i < input.length; i++) {
         var ln = input[i];
         var cn = prefilter(ln);
+        if(i == 0)
+          cn.type = "TITLE";
         console.log(cn);
       }
     }
