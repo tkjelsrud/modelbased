@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>v0.008</title>
+<title>v0.009</title>
 </head>
 
 <body>
@@ -28,15 +28,15 @@
       
       if(text.indexOf("Failure on") == 0 || text.indexOf("Failure") == 0) {
         type = "FAILURE";
-        meta = text.replace(new Array("failure on", "failure"), "");
+        meta = text.replace(/failure (on)?/ig, "");
       }
       if(text.indexOf("Input") == 0) {
         type = "INPUT";
-        meta = text.replace(new Array("input"), "");
+        meta = text.replace(/input/ig, "");
       }
       if(text.indexOf("Choice") == 0 || text.indexOf("?") >= 0) {
         type = "CHOICE";
-        meta = text.replace(new Array("Choice", "?"), "");
+        meta = text.replace(/choice/ig, "");
       }
       return {'type': type, 'meta': meta.trim()};
     }
