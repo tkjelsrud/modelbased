@@ -1,20 +1,47 @@
 <html>
 <head>
-<title>v0.003</title>
+<title>v0.004</title>
 </head>
 
 <body>
-<form method="GET">
-  <textarea id="q" name="q">..</textarea>
-  <input type="Submit" />
-</form>
+  <div id="input">
+    <form method="GET">
+      <textarea id="q" name="q" style="height:100px;width:400px">..</textarea>
+      <input type="Submit" />
+    </form>
+  </div>
+  <div id="canvas">
+    .
+  </div>
   <a href="javascript:void(processInput())">Process</a>
 <script type="text/javascript">
     var test1 = "User logs in\nLogin window\nChoice BankId, BankId Mobile\nFailure on Invalid input";
     document.getElementById("q").value = test1;
+  
+    function prefilter(text) {
+     // Find command and metadata in a line of text
+      var type = "PROC";
+      var meta = "";
+      text = text.trim();
+      if(text.startsWith("Failure on") || text.startsWith("Failure")) {
+        type = "FAIL";
+        meta = text.replace(new Array("failure on", "failure"), "");
+      }
+      
+      return {'type': type, 'meta': meta};
+    }
+  
     function processInput() {
+      // Process lines of text to model
       var input = document.getElementById("q").value;
-      console.log(input);
+      input = input.trim();
+      input = input.split("\n");
+      
+      for(i = 0; i < input.length; i++) {
+        var ln = input[i];
+        var cn = prefilter(ln);
+        console.log(cn);
+      }
     }
 </script>
 </body>
