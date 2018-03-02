@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>v0.005</title>
+<title>v0.006</title>
 </head>
 
 <body>
@@ -21,8 +21,11 @@
     function prefilter(text) {
      // Find command and metadata in a line of text
       var type = "PROCESS";
-      var meta = "";
+     
       text = text.trim();
+      
+      var meta = text;
+      
       if(text.indexOf("Failure on") == 0 || text.indexOf("Failure") == 0) {
         type = "FAILURE";
         meta = text.replace(new Array("failure on", "failure"), "");
@@ -31,7 +34,10 @@
         type = "INPUT";
         meta = text.replace(new Array("input"), "");
       }
-      
+      if(text.indexOf("?") >= 0) {
+        type = "CHOICE";
+        meta = text.replace("?", "");
+      }
       return {'type': type, 'meta': meta.trim()};
     }
   
