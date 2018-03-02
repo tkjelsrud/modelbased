@@ -20,15 +20,19 @@
   
     function prefilter(text) {
      // Find command and metadata in a line of text
-      var type = "PROC";
+      var type = "PROCESS";
       var meta = "";
       text = text.trim();
       if(text.indexOf("Failure on") == 0 || text.indexOf("Failure") == 0) {
-        type = "FAIL";
+        type = "FAILURE";
         meta = text.replace(new Array("failure on", "failure"), "");
       }
+      if(text.indexOf("Input") == 0) {
+        type = "INPUT";
+        meta = text.replace(new Array("input"), "");
+      }
       
-      return {'type': type, 'meta': meta};
+      return {'type': type, 'meta': meta.trim()};
     }
   
     function processInput() {
