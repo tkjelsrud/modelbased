@@ -23,7 +23,7 @@
       var type = "PROCESS";
      
       text = text.trim();
-      findTags(text);
+      var tags = findTags(text);
       var meta = text;
       
       if(text.indexOf("Failure on") == 0 || text.indexOf("Failure") == 0) {
@@ -38,13 +38,15 @@
         type = "CHOICE";
         meta = text.replace(/choice/ig, "");
       }
-      return {'type': type, 'meta': meta.trim()};
+      return {'type': type, 'meta': meta.trim(), 'tags': tags};
     }
   
     function findTags(text) {
       arr = text.match(/#\w+/g);
+      res = new Array();
       for(j = 0; arr && j < arr.length; j++)
-        console.log(arr[j]);
+        res.push(arr[j].replace("#", ""));
+      return res;
     }
   
     function processInput() {
