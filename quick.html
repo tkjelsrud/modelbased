@@ -43,7 +43,7 @@
   
     function findTags(text) {
       arr = text.match(/#(.*?)/g);
-      for(i = 0; i < arr.length; i++)
+      for(i = 0; arr && i < arr.length; i++)
         console.logg(arr[i]);
     }
   
