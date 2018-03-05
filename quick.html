@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>v0.009</title>
+<title>v0.010</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
       var type = "PROCESS";
      
       text = text.trim();
-      
+      findTags(text);
       var meta = text;
       
       if(text.indexOf("Failure on") == 0 || text.indexOf("Failure") == 0) {
@@ -39,6 +39,12 @@
         meta = text.replace(/choice/ig, "");
       }
       return {'type': type, 'meta': meta.trim()};
+    }
+  
+    function findTags(text) {
+      arr = text.match(/#(.*?)/g);
+      for(i = 0; i < arr.length; i++)
+        console.logg(arr[i]);
     }
   
     function processInput() {
