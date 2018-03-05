@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>v0.010</title>
+<title>v0.011</title>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
     }
   
     function findTags(text) {
-      arr = text.match(/#(.*?)/g);
+      arr = text.match(/#\w+/g);
       for(j = 0; arr && j < arr.length; j++)
         console.log(arr[j]);
     }
