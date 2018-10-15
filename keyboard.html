@@ -270,7 +270,10 @@
 
       function localLoad() {
         // Warning, poor impl (will overwrite?)
-        gData = JSON.parse(localStorage.getItem(gSegm));
+        gData = new Array();
+        if(localStorage.getItem(gSegm)) {
+          gData = JSON.parse(localStorage.getItem(gSegm));
+        }
 
         gId = 0;
         for(i = 0; i < gData.length; i++)
