@@ -187,7 +187,7 @@ function EditField(id, key) {
   else
   	n.props[key] = val;
   
-  
+  SaveScope(); // How do we 
 }
 
 function LoadScopeList() {
@@ -217,6 +217,8 @@ function LoadScope(sId) {
 }
 
 function SaveScope(sId) {
+  if(sId == null)
+    sId = sid; // Does this work?
   // Find node locations and store
   for(i = 0; i < cscope.nodes.length; i++) {
     cscope.nodes[i].x = $("#n_" + cscope.nodes[i].id).offset().left;
