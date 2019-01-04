@@ -153,6 +153,7 @@ function ShowPopup(nid) {
   //AddPopupElements(n.id, "#p_" + n.id + " .container.base", {"id": n.id, "label": n.label});
 
   $("#p_" + n.id + " .container.props").empty();
+  AddPopupElements(n.id, "#p_" + n.id + " .container.props", n.id);
   if(n.props) {
     AddPopupElements(n.id, "#p_" + n.id + " .container.props", n.props);
   }
