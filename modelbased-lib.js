@@ -132,6 +132,10 @@ function Draw() {
 	  newPath.attr({ stroke: 'blue'})*/
 }
 
+function AddTag(nid) {
+ 	console.log("Add tag to " + nid); 
+}
+
 function LinkNodes(aid, bid) {
   // ...
   a = GetNode(aid);
