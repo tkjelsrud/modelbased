@@ -130,7 +130,18 @@ function Draw() {
 	  bb2 = re.getBBox();
 	  var newPath = paper.path('M'+bb1.cx+','+bb1.cy+'L'+bb2.cx+','+bb2.cy);
 	  newPath.attr({ stroke: 'blue'})*/
+}
 
+function LinkNodes(aid, bid) {
+  // ...
+  a = GetNode(aid);
+  b = GetNode(bid);
+  
+  if(a && b) {
+    console.log("Linking nodes: " + a + " and " + b);
+  }
+  else
+    console.log("Could not link nodes");
 }
 
 function ShowPopup(nid) {
