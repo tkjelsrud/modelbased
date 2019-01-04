@@ -101,7 +101,7 @@ function Draw() {
           tags += "<li>" + n.tags[j][2] + "</li>";
         }
       }
-      tags += "</ul>";
+      tags += "<li><a href=\"javascript:void(AddTag(n.id));\">+</a></li></ul>";
       
       d = $("<div id=\"n_" + n.id + "\" class=\"node\"><span id=\"n_" + n.id + "_label\">" + label + "</span><div class=\"tags\">" + tags + "</div></div>");
 
