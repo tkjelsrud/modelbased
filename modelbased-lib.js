@@ -25,9 +25,9 @@ function GetLogicFunc(nid, handle) {
   code = n.logic;
   code = code.replace(/<div>|<p>/g, "");
   code = code.replace(/<\/div>|<\/p>|<br>|<br\/>/g, "\n");
-  
+
   if(handle == "") {
-   	// Get the global scope 
+   	// Get the global scope
   }
   else {
     console.log(code);
@@ -76,7 +76,7 @@ function GetNodeFromLoc(x, y, c) {
     if(xmin <= cscope.nodes[i].x && cscope.nodes[i].x <= xmax && ymin <= cscope.nodes[i].y && cscope.nodes[i].y <= ymax)
       return cscope.nodes[i];
   }
-  
+
   return null;
 }
 
@@ -93,7 +93,7 @@ function Draw() {
       n = cscope.nodes[i];
       cscope.nodes[i].vid = "n_" + n.id;
       label = (n.props && "label" in n.props? n.props["label"] : "");
-      
+
       tags = "&nbsp;";
       tags = "<ul>";
       if(n.tags) {
@@ -102,7 +102,7 @@ function Draw() {
         }
       }
       tags += "<li><a href=\"javascript:void(AddTag(n.id));\">+</a></li></ul>";
-      
+
       d = $("<div id=\"n_" + n.id + "\" class=\"node\"><span id=\"n_" + n.id + "_label\">" + label + "</span><div class=\"tags\">" + tags + "</div></div>");
 
       $(d).draggable({ grid: [ 10, 10 ] });
@@ -112,7 +112,7 @@ function Draw() {
       $("#canvas").append(d);
 
       // Adding popups pr node
-      p = $("<div id=\"p_" + n.id + "\" class=\"popup\"><div class=\"bar\"><span class=\"title\">&nbsp;</span><a href=\"javascript:void($('#p_" + n.id + "').hide());\">X</a></div><div class=\"container props\">&nbsp;</div><div class=\"bar logic\">Logic</div><div class=\"container logic\">&nbsp;</div></div>");
+      p = $("<div id=\"p_" + n.id + "\" class=\"popup\"><div class=\"bar\"><span class=\"title\">&nbsp;</span><a href=\"javascript:void($('#p_" + n.id + "').hide());void(SaveScope());\">X</a></div><div class=\"container props\">&nbsp;</div><div class=\"bar logic\">Logic</div><div class=\"container logic\">&nbsp;</div></div>");
       $(p).hide();
       //$(p).draggable();
 
@@ -133,14 +133,14 @@ function Draw() {
 }
 
 function AddTag(nid) {
- 	console.log("Add tag to " + nid); 
+ 	console.log("Add tag to " + nid);
 }
 
 function LinkNodes(aid, bid) {
   // ...
   a = GetNode(aid);
   b = GetNode(bid);
-  
+
   if(a && b) {
     console.log("Linking nodes: " + a + " and " + b);
   }
@@ -166,7 +166,7 @@ function ShowPopup(nid) {
   //if(n.logic) {
   $("#p_" + n.id + " .container.logic").append("<div id=\"" + n.id + "_logic\" class=\"value\" contenteditable=\"true\" style=\"width:100%\" onblur=\"void(EditField('" + n.id + "','logic'));\">" + n.logic + "</div>");
   //}
-  
+
   $("#p_" + n.id).show();
   $("#p_" + n.id).offset({ top: $("#" + nid).offset().top + 20, left: $("#" + nid).offset().left + 20});
 }
@@ -182,16 +182,16 @@ function EditField(id, key) {
   val = $("#" + id + "_" + key).html();
   val = val.replace("\n", "<br/>");
   n = GetNode(id);
-  
+
   if(key == "label")
     $("#n_" + id + "_label").html(val);
-  
+
   if(key == "logic")
     n.logic = val;
   else
   	n.props[key] = val;
-  
-  SaveScope(); // How do we 
+
+  SaveScope(); // How do we
 }
 
 function LoadScopeList() {
@@ -202,9 +202,9 @@ function LoadScopeList() {
 }
 
 function UpdateScopeList(sc) {
-  if(cscopeList.indexOf("" + sc) == -1) 
+  if(cscopeList.indexOf("" + sc) == -1)
   	cscopeList.push(sc);
-  
+
   localStorage.setItem("scopes", JSON.stringify(cscopeList));
 }
 
@@ -261,12 +261,12 @@ function Export() {
 
 function ResetSimulation() {
   ClearDependencies();
-  
+
   // Build dependencies and links
-  
+
   // Run all reset routines for nodes
-  
-  
+
+
 }
 
 function RunSimulationCycle() {
