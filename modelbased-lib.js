@@ -19,6 +19,7 @@ function Node(id, label, x, y) {
   this.logic = "";
 }
 
+// TODO: Deprecate
 function GetLogicFunc(nid, handle) {
   // Return runnable part of logic (code)
   n = GetNode(nid);

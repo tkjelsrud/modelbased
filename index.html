@@ -75,6 +75,12 @@
           maxItr = 999;
           que = new Array();
 
+          // Add default workload to the queue
+          for(i = 0; i < cscope.nodes.length; i++) {
+            n = cscope.nodes[i];
+            que.push(n);
+          }
+
           for(i = 0; i < maxIter; i++) {
             que = RunEvents(que);
             if(que == null)
@@ -82,11 +88,19 @@
           }
         }
 
-      function RunEvents(que) {
-        // Iterate through all objects that have scripts
-        // The scope timer is such a script (sets max iterations)
+        function RunEvents(que) {
+          // Iterate through all objects that have scripts
+          // The scope timer is such a script (sets max iterations)
+          for(itm in que) {
+            console.log(itm.logic);
+          }
+        }
 
-      }
+        function runLogic(itm, func) {
+          logic = itm.logic;
+          // Find the right section of the code
+
+        }
 
     </script>
     <style>
@@ -195,6 +209,7 @@
 
       .popup .container .logic {
         width: 100%;
+        font-family: "Lucida Console", Monaco, monospace;
       }
 
       .node {
