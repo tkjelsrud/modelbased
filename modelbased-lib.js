@@ -97,7 +97,7 @@ function runLogicFunc(itm, code) {
     word = line.split(" ")[0];
 
     switch(word) {
-      "flagif":
+      case "flagif":
         //
         break;
 
@@ -107,7 +107,7 @@ function runLogicFunc(itm, code) {
 
   }
   itm.setProp("x", x);
-  
+
   return true;
 }
 
