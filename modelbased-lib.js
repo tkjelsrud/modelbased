@@ -19,20 +19,62 @@ function Node(id, label, x, y) {
   this.logic = "";
 }
 
-// TODO: Deprecate
-function GetLogicFunc(nid, handle) {
-  // Return runnable part of logic (code)
-  n = GetNode(nid);
-  code = n.logic;
+
+function RunSimulation() {
+	  // Nodes sorted by sequence
+  //
+  maxItr = 999;
+  que = new Array();
+
+  // Add default workload to the queue
+  for(i = 0; i < cscope.nodes.length; i++) {
+    n = cscope.nodes[i];
+    que.push(n);
+  }
+
+  for(i = 0; i < maxItr; i++) {
+    que = RunEvents(que);
+    if(que == null)
+      break;
+  }
+}
+
+function RunEvents(que) {
+  // Iterate through all objects that have scripts
+  // The scope timer is such a script (sets max iterations)
+  for(itm in que) {
+    runLogic(itm, "first");
+  }
+}
+
+function getLogicFunc(itm, func) {
+  code = itm.logic;
   code = code.replace(/<div>|<p>/g, "");
   code = code.replace(/<\/div>|<\/p>|<br>|<br\/>/g, "\n");
+  lines = code.split("\n");
+  read = false;
+  res = new Array();
 
-  if(handle == "") {
-   	// Get the global scope
+  for(i = 0; i < lines.length; i++) {
+    if(lines[i].trim() == "") {
+      //
+    }
+    else {
+      if(read) {
+        res.push(lines[i])
+      }
+      if(lines[i].endsWith(":")) {
+        if(lines[i] == func + ":") {
+          read = true;
+        }
+        else {
+          read = false;
+        }
+      }
+    }
   }
-  else {
-    console.log(code);
-  }
+
+  return res;
 }
 
 function Prop(id, value) {
