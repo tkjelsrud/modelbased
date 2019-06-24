@@ -29,6 +29,16 @@ Node.prototype.setProp = function(key, val) {
   this.props[key] = val;
 };
 
+Node.prototype.fromArray = function(arr) {
+  // Use map instead?
+  this.props = arr.props;
+  this.id = arr.id;
+  this.x = arr.x;
+  this.y = arr.y;
+  this.tags = arr.tags;
+  this.logic = arr.logic;
+};
+
 
 function RunSimulation() {
 	  // Nodes sorted by sequence
@@ -53,7 +63,8 @@ function RunEvents(que) {
   // Iterate through all objects that have scripts
   // The scope timer is such a script (sets max iterations)
   for(itm in que) {
-    runLogic(itm, "first");
+    c = getLogicFunc(itm, "first");
+    r = runLogicFunc(item, c);
   }
 }
 
