@@ -11,11 +11,10 @@ function Scope(id, timer, objects) {
 function Node(id, label, x, y) {
   this.id = id;
   this.vid = -1;
-  this.props = {"label": label, "prop2": "hallo", "x": 0};
+  this.props = {"x": 0};
   this.x = x;
   this.y = y;
-
-  this.tags = [["INC", "123", "Hello INC", 1],["INC", "2", "Hello INC 2", 3]];
+  this.tags = new Array(); // [ [KEY, VAL, STYLE] ]
   this.logic = "";
 }
 
@@ -40,7 +39,6 @@ Node.prototype.fromArray = function(arr) {
   return this;
 };
 
-
 function RunSimulation() {
 	// Nodes sorted by sequence
   maxItr = 999;
@@ -61,9 +59,9 @@ function RunSimulation() {
 function RunEvents(que) {
   // Iterate through all objects that have scripts
   // The scope timer is such a script (sets max iterations)
-  for(itm in que) {
-    c = getLogicFunc(itm, "first");
-    r = runLogicFunc(item, c);
+  for(j = 0; j < que.length; j++) {
+    c = getLogicFunc(que[j], "first");
+    r = runLogicFunc(que[j], c);
   }
 }
 
@@ -109,6 +107,11 @@ function runLogicFunc(itm, code) {
     switch(word) {
       case "flagif":
         //
+        break;
+
+      case "showx":
+        //v = line.split(" ")[1];
+        setTag(itm.id, ["x", x, ""]);
         break;
 
       default:
@@ -219,8 +222,11 @@ function Draw() {
 	  newPath.attr({ stroke: 'blue'})*/
 }
 
-function AddTag(nid) {
- 	console.log("Add tag to " + nid);
+function SetTag(nid, tag) {
+  // [KEY, VAL, STYLE]
+  $("#n_" + n.id + " .tags ul").children("#" + tag[0]).remove();
+  $("#n_" + n.id + " .tags ul").append("<li style=\"" + tag[2] + "\" id=\"" + tag[0] + "\">" + tag[0] + ": " + tag[1] + "</li>");
+
 }
 
 function LinkNodes(aid, bid) {
