@@ -43,10 +43,8 @@ Node.prototype.fromArray = function(arr) {
 
 function RunSimulation() {
 	// Nodes sorted by sequence
-  //
   maxItr = 999;
   que = new Array();
-
   // Add default workload to the queue
   for(i = 0; i < cscope.nodes.length; i++) {
     n = (new Node()).fromArray(cscope.nodes[i]);
