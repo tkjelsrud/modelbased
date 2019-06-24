@@ -37,18 +37,19 @@ Node.prototype.fromArray = function(arr) {
   this.y = arr.y;
   this.tags = arr.tags;
   this.logic = arr.logic;
+  return this;
 };
 
 
 function RunSimulation() {
-	  // Nodes sorted by sequence
+	// Nodes sorted by sequence
   //
   maxItr = 999;
   que = new Array();
 
   // Add default workload to the queue
   for(i = 0; i < cscope.nodes.length; i++) {
-    n = cscope.nodes[i];
+    n = (new Node()).fromArray(cscope.nodes[i]);
     que.push(n);
   }
 
