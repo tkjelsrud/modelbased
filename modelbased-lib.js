@@ -11,13 +11,23 @@ function Scope(id, timer, objects) {
 function Node(id, label, x, y) {
   this.id = id;
   this.vid = -1;
-  this.props = {"label": label, "prop2": "hallo"};
+  this.props = {"label": label, "prop2": "hallo", "x": 0};
   this.x = x;
   this.y = y;
 
   this.tags = [["INC", "123", "Hello INC", 1],["INC", "2", "Hello INC 2", 3]];
   this.logic = "";
 }
+
+Node.prototype.getProp = function(key) {
+  if(key in this.props)
+    return this.props[key];
+  return null;
+};
+
+Node.prototype.setProp = function(key, val) {
+  this.props[key] = val;
+};
 
 
 function RunSimulation() {
@@ -49,8 +59,9 @@ function RunEvents(que) {
 
 function getLogicFunc(itm, func) {
   code = itm.logic;
-  code = code.replace(/<div>|<p>/g, "");
+  code = code.replace(/<div>|<p>/g, "\n");
   code = code.replace(/<\/div>|<\/p>|<br>|<br\/>/g, "\n");
+  code = code.replace(/&nbsp;/g, "");
   lines = code.split("\n");
   read = false;
   res = new Array();
@@ -60,9 +71,6 @@ function getLogicFunc(itm, func) {
       //
     }
     else {
-      if(read) {
-        res.push(lines[i])
-      }
       if(lines[i].endsWith(":")) {
         if(lines[i] == func + ":") {
           read = true;
@@ -71,10 +79,36 @@ function getLogicFunc(itm, func) {
           read = false;
         }
       }
+      else {
+        if(read) {
+          res.push(lines[i].trim())
+        }
+      }
     }
   }
-
   return res;
+}
+
+function runLogicFunc(itm, code) {
+  // Form some local vars
+  x = itm.getProp("x");
+
+  for(line in code) {
+    word = line.split(" ")[0];
+
+    switch(word) {
+      "flagif":
+        //
+        break;
+
+      default:
+        eval(line);
+    }
+
+  }
+  itm.setProp("x", x);
+  
+  return true;
 }
 
 function Prop(id, value) {
